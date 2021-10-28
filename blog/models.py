@@ -35,6 +35,8 @@ class Post(models.Model):
     published_at = models.DateTimeField(blank=True, null=True)
     is_public = models.BooleanField(default=False)
 
+    image = models.ImageField(upload_to='post_images/', null=True, blank=True)
+
     class Meta:
         ordering = ['-created_at']
 
@@ -45,3 +47,7 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+class ContentImage(models.Model):
+    post = models.ForeignKey(Post,on_delete=models.PROTECT)
+    content_image = models.ImageField(upload_to='post_content_images/')

@@ -1,0 +1,12 @@
+<h1>Post of "#{{ tag.name }}"/h1>
+<ul>
+  {% for post in object_list %}
+  {% if user.is_authenticated or post.is_public %}
+  <li>{% if not post.is_public %}[Draft] {% endif %}<a href="{% url 'blog:post_detail' post.id %}">{{ post.title }}</a></li>
+  {% else %}
+  <li>No post</li>
+  {% endif %}
+  {% empty %}
+  <li>No post yet</li>
+  {% endfor %}
+</ul>

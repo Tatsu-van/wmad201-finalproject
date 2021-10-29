@@ -1,13 +1,22 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 
-from django.db.models import Count, Q
+from django.db.models import Count, Q, query
 from django.http import Http404
+from django.utils import timezone
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
+from django.views import generic
 
-from blog.models import Post, Category, Tag
+from django.urls import reverse_lazy
+
+from .forms import PostCreateForm
+
+from blog.models import ContentImage, Post, Category, Tag
 
 # Create your views here.
+
+def home(request):
+    return render(request, 'blog/home.html')
 
 
 class PostDetailView(DetailView):
@@ -19,10 +28,21 @@ class PostDetailView(DetailView):
             raise Http404
         return obj
 
+class PostUpdateView(generic.UpdateView):
+    model = Post
+    form_class = PostCreateForm
+    success_url = reverse_lazy('blog:home')
+
+
+class PostDeleteView(generic.DeleteView):
+    model = Post
+    form_class = PostCreateForm
+    success_url = reverse_lazy('blog:home')
+
 
 class IndexView(ListView):
     model = Post
-    template_name = 'blog/index.html'
+    template_name = 'blog/home.html'
 
 
 class CategoryListView(ListView):
@@ -65,3 +85,32 @@ class TagPostView(ListView):
       context = super().get_context_data(**kwargs)
       context['tag'] = self.tag
       return context
+
+class PostCreateView(generic.CreateView):
+    model = Post 
+    form_class = PostCreateForm 
+    content_image = ContentImage
+    success_url = reverse_lazy('blog:home') 
+
+# def PostCreateView(request):
+#     if request.method == 'POST':
+#         form = PostCreateForm(request.POST)
+
+#         if form.is_valid():
+#             post = Post()
+
+#             post.tags = request.POST['tags']
+#             post.title = request.POST['title']
+#             post.image = request.FILES['image']
+#             post.content = request.POST['content']
+#             post.description = request.POST['description']
+#             post.published_at = timezone.now()
+#             post.is_public = request.POST['is_published']
+#             category_obj = Category.objects.get(name=post.category)
+#             post.category_obj = category_obj
+#             post.save()
+#             return redirect('post_detail', pk=post.pk)
+#     else:
+#         form = PostCreateForm()
+
+#     return render(request, 'blog/post_form.html', {'form': form})

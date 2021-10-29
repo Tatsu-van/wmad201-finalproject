@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Posts | {{ block.super }}{% endblock %}
+
+{% block description %} Tatsu's Blog. Here is everything of my life.{% endblock %}
+
+{% block content %}
+
+<form action="" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+
+  <!-- {{ from.as_p }} -->
+  <table class="table">
+      <tr>
+        <th>Category</th>
+        <td>{{ form.category }}</td>
+      </tr>
+      <tr>
+        <th>Tag</th>
+        <td>{{ form.tags }}</td>
+      </tr>
+      <tr>
+        <th>Title</th>
+        <td>{{ form.title }}</td>
+      </tr>
+      <tr>
+        <th>Content</th>
+        <td>{{ form.content }}</td>
+      </tr>
+      <tr>
+        <th>Is published</th>
+        <td>{{ form.is_public}}</td>
+      </tr>
+      <tr>
+        <th>Image</th>
+        <td>{{ form.image }}</td>
+      </tr>
+  </table>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+
+{% endblock %}

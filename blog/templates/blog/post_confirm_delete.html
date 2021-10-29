@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Posts | {{ block.super }}{% endblock %}
+
+{% block description %} Tatsu's Blog. Here is everything of my life.{% endblock %}
+
+{% block content %}
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <table>
+      <tr>
+        <th>Title</th>
+        <td>{{ post.title }}</td>
+      </tr>
+      <tr>
+        <th>Content</th>
+        <td>{{ post.content }}</td>
+      </tr>
+      <tr>
+        <th>Date</th>
+        <td>{{ post.published_at }}</td>
+      </tr>
+  </table>
+  <p>Are you sure to delete this post?</p>
+  <button type="submit">Delete</button>
+</form>
+
+{% endblock %}

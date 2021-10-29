@@ -1,3 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Posts | {{ block.super }}{% endblock %}
+
+{% block description %} Tatsu's Blog. Here is everything of my life.{% endblock %}
+
+{% block content %}
+
 <h1>Tags</h1>
 <ul>
   {% for tag in object_list %}
@@ -6,3 +14,5 @@
   <li>No tag yet</li>
   {% endfor %}
 </ul>
+
+{% endblock %}

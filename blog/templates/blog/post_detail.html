@@ -1,3 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Posts | {{ block.super }}{% endblock %}
+
+{% block description %} Tatsu's Blog. Here is everything of my life.{% endblock %}
+
+{% block content %}
+
 <h1>{{ object.title }}</h1>
 <p>{{ object.published_at|date }}</p>
 <p>{{ object.category.name }}</p>
@@ -6,3 +14,5 @@
 {% endfor %}
 <hr>
 {{ object.content|safe }}
+
+{% endblock %}

@@ -1,3 +1,30 @@
-h1{
-  color: red;
+
+.navbar{
+  padding: 10px 10%;
+
+  margin-bottom: 40px;
+}
+
+.wrapper{
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: 55px;
+  box-sizing: border-box;
+}
+
+.page-footer{
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  height: 55px;
+}
+
+.blog_detail{
+  background-color: skyblue;
+  height: calc(100vh - 200px);
+  padding: 10px 20px;
+}
+
+.blog_detail_date{
+  color: gray;
 }

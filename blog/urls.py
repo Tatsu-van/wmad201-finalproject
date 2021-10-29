@@ -1,6 +1,6 @@
 from django.urls import path
 
-from blog.views import IndexView, PostDetailView, CategoryListView, TagListView, CategoryPostView, TagPostView, PostCreateView,PostUpdateView, PostDeleteView, home
+from blog.views import IndexView, PostDetailView, CategoryListView, TagListView, CategoryPostView, TagPostView, PostCreateView,PostUpdateView, PostDeleteView, home, SerachPostView
 
 app_name = 'blog'
 urlpatterns = [
@@ -13,6 +13,8 @@ urlpatterns = [
     path('tags/', TagListView.as_view(), name='tag_list'),
     path('category/<str:category_slug>/',
          CategoryPostView.as_view(), name='category_post'),
-    path('tag/<str:tag_slug>/', TagPostView.as_view(), name='tag_post'),
+    path('tags/<str:tag_slug>/', TagPostView.as_view(), name='tag_post'),
     path('post_create', PostCreateView.as_view(), name='post_create'),
+    path('search/', SerachPostView.as_view(), name='search_post'),
+
 ]

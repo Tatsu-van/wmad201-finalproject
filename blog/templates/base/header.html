@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-info ">
+  <div class="container-fluid ">
+    <a class="navbar-brand" href="/">Tatsu's Blog</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'blog:home' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'blog:category_list' %}">Category</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'blog:tag_list' %}">Tag</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'blog:post_create' %}">Creat post</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'blog:tag_list' %}">Tag</a>
+        </li>
+
+      </ul>
+      {% include "blog/snippets/search_form.html" %}
+    </div>
+  </div>
+</nav>

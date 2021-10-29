@@ -1,0 +1,25 @@
+{% extends 'base.html' %} 
+
+{% block title %}
+  Posts | {{ block.super }}
+{% endblock %}
+
+{% block description %}
+The result of {% if query %} {{ query }} {% endif %}
+{% endblock %} 
+
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <main class="col-md-7">
+      <h1 class="mb-4">The result of {% if query %} "{{ query }}" {% endif %}</h1>
+      <p class="text-right">{{ paginator.count }} pages</p>
+      {% include "blog/snippets/main_post_list.html" %}
+      {% include "blog/snippets/pagenation.html" %}
+    </main>
+
+    <aside class="col-md-4">{% include 'blog/snippets/sidebar.html' %}</aside>
+  </div>
+</div>
+{% endblock %}

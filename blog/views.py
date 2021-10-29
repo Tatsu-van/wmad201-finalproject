@@ -29,9 +29,12 @@ class PostDetailView(DetailView):
         return obj
 
 class PostUpdateView(generic.UpdateView):
+    template_name = 'blog/post_update.html'
     model = Post
     form_class = PostCreateForm
-    success_url = reverse_lazy('blog:home')
+    
+    def get_success_url(self):
+        return reverse_lazy('blog:home', kwargs={'pk': self.object.pk})
 
 
 class PostDeleteView(generic.DeleteView):
@@ -43,6 +46,7 @@ class PostDeleteView(generic.DeleteView):
 class IndexView(ListView):
     model = Post
     template_name = 'blog/home.html'
+    paginate_by = 5
 
 
 class CategoryListView(ListView):
@@ -73,12 +77,12 @@ class CategoryPostView(ListView):
 
 class TagPostView(ListView):
     model = Post
-    template_name = 'blog/tag_post.hrml'
+    template_name = 'blog/tag_post.html'
 
     def get_queryset(self):
         tag_slug = self.kwargs['tag_slug']
         self.tag = get_object_or_404(Tag, slug=tag_slug)
-        qs = super().get_queryset().filter(tag=self.tag)
+        qs = super().get_queryset().filter(tags=self.tag)
         return qs
 
     def get_context_data(self, **kwargs):
@@ -92,25 +96,29 @@ class PostCreateView(generic.CreateView):
     content_image = ContentImage
     success_url = reverse_lazy('blog:home') 
 
-# def PostCreateView(request):
-#     if request.method == 'POST':
-#         form = PostCreateForm(request.POST)
+class SerachPostView(ListView):
+    model = Post
+    template_name = 'blog/search_post.html'
+    paginate_by = 5
 
-#         if form.is_valid():
-#             post = Post()
+    def get_queryset(self):
+        query = self.request.GET.get('q', None)
+        lookups = (
+            Q(title__icontains=query) |
+            Q(content__icontains=query) |
+            Q(category__name__icontains=query) |
+            Q(tags__name__icontains=query)
+        )
 
-#             post.tags = request.POST['tags']
-#             post.title = request.POST['title']
-#             post.image = request.FILES['image']
-#             post.content = request.POST['content']
-#             post.description = request.POST['description']
-#             post.published_at = timezone.now()
-#             post.is_public = request.POST['is_published']
-#             category_obj = Category.objects.get(name=post.category)
-#             post.category_obj = category_obj
-#             post.save()
-#             return redirect('post_detail', pk=post.pk)
-#     else:
-#         form = PostCreateForm()
+        if query is not None:
+            qs = super().get_queryset().filter(lookups).distinct()
+            return qs
 
-#     return render(request, 'blog/post_form.html', {'form': form})
+        qs = super().get_queryset()
+        return qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        query = self.request.GET.get('q')
+        context['query'] = query
+        return context

@@ -4,9 +4,9 @@ from .models import ContentImage, Post
 
 
 class PostCreateForm(forms.ModelForm):
-
+    
     class Meta:
        model = Post
-       fields = ('category', 'tags', 'title', 'content','image','is_public')
+       fields = ('category', 'tags', 'title', 'content','image','is_public', 'published_at')
 
 

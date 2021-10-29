@@ -5,14 +5,29 @@
 {% block description %} Tatsu's Blog. Here is everything of my life.{% endblock %}
 
 {% block content %}
+<div class="row justify-content-between">
 
-<h1>{{ object.title }}</h1>
-<p>{{ object.published_at|date }}</p>
-<p>{{ object.category.name }}</p>
-{% for tag in object.tags.all %}
-{{ tag.name }}
-{% endfor %}
-<hr>
-{{ object.content|safe }}
+  <main class="blog_detail col-md-7 bg-light">
+    
+    <h1 class="blog_detail_title">{{ object.title }}</h1>
+    <p class="blog_detail_date"><i class="far fa-clock"></i></i><span class="sub">Date: </span>{{ object.published_at|date }}</p>
+    <p class="blog_detail_category"><span class="sub">Category: </span>{{ object.category.name }}</p>
+    </span>Tag: </span>
+    {% for tag in object.tags.all %}
+    <span class="blog_detail_tag"><span class="sub">{{ tag.name }},</span>
+    {% endfor %}
+    <p class="blog_detail_links">
+      <a href="{% url 'blog:post_update' post.pk %}" >Edit</a>
+      <a href="{% url 'blog:post_delete' post.pk %}" >Delete</a>
+    </p>
 
+    <hr class="blog_detail_content">
+    {{ object.content|safe }}
+    
+
+  </main>
+  
+  <aside class="col-md-4">{% include 'blog/snippets/sidebar.html' %}</aside>
+  
+</div>
 {% endblock %}

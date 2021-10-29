@@ -5,10 +5,11 @@
 {% block description %} Tatsu's Blog. Here is everything of my life.{% endblock %}
 
 {% block content %}
+<div class="delete-confirm">
 
-<form action="" method="POST">
-  {% csrf_token %}
-  <table>
+  <form action="" method="POST">
+    {% csrf_token %}
+    <table>
       <tr>
         <th>Title</th>
         <td>{{ post.title }}</td>
@@ -21,9 +22,10 @@
         <th>Date</th>
         <td>{{ post.published_at }}</td>
       </tr>
-  </table>
-  <p>Are you sure to delete this post?</p>
-  <button type="submit">Delete</button>
-</form>
+    </table>
+    <p class="text-danger delete-text">Are you sure to delete this post?</p>
+    <button class="btn btn-danger" type="submit">Delete</button>
+  </form>
+</div>
 
 {% endblock %}

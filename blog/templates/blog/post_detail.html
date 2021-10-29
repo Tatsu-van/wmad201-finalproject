@@ -7,21 +7,23 @@
 {% block content %}
 <div class="row justify-content-between">
 
-  <main class="blog_detail col-md-7 bg-light">
+  <main class="blog_detail col-md-7 bg-white">
     
     <h1 class="blog_detail_title">{{ object.title }}</h1>
     <p class="blog_detail_date"><i class="far fa-clock"></i></i><span class="sub">Date: </span>{{ object.published_at|date }}</p>
     <p class="blog_detail_category"><span class="sub">Category: </span>{{ object.category.name }}</p>
-    </span>Tag: </span>
-    {% for tag in object.tags.all %}
-    <span class="blog_detail_tag"><span class="sub">{{ tag.name }},</span>
-    {% endfor %}
+    <p>
+      <span class="sub">Tag: </span>
+      {% for tag in object.tags.all %}
+      <span class="blog_detail_tag"><span >{{ tag.name }},</span>
+      {% endfor %}
+    </p>
     <p class="blog_detail_links">
       <a href="{% url 'blog:post_update' post.pk %}" >Edit</a>
       <a href="{% url 'blog:post_delete' post.pk %}" >Delete</a>
     </p>
 
-    <hr class="blog_detail_content">
+    <p class="blog_detail_content">
     {{ object.content|safe }}
     
 

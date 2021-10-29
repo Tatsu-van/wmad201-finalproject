@@ -10,13 +10,13 @@ Tatsu's Blog. Here is everything of my life.
 
 
 {% block content %}
-<div class="row ">
-  <main class="col-md-8 bg-light px-5 pt-5">
+<div class="row justify-content-around">
+  <main class="col-md-7 bg-light px-5 pt-5">
     <h1 class="mb-4">All posts</h1>
     {% include "blog/snippets/main_post_list.html" %}
     {% include "blog/snippets/pagenation.html" %}
   </main>
 
-  <aside class="col-md-4">{% include 'blog/snippets/sidebar.html' %}</aside>
+  <aside class="col-md-4 mr-4 px-5 pt-5">{% include 'blog/snippets/sidebar.html' %}</aside>
 </div>
 {% endblock %}

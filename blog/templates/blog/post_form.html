@@ -5,12 +5,13 @@
 {% block description %} Tatsu's Blog. Here is everything of my life.{% endblock %}
 
 {% block content %}
+<div class="create_post">
 
-<form action="" method="POST" enctype="multipart/form-data">
-  {% csrf_token %}
-
-  <!-- {{ from.as_p }} -->
-  <table class="table">
+  <form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <!-- {{ from.as_p }} -->
+    <table class="table">
       <tr>
         <th>Category</th>
         <td>{{ form.category }}</td>
@@ -39,9 +40,10 @@
         <th>Image</th>
         <td>{{ form.image }}</td>
       </tr>
-  </table>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+    </table>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
 
 
 {% endblock %}

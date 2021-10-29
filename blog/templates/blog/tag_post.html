@@ -6,17 +6,35 @@
 
 {% block content %}
 
-<h1>Post of "{{ tags.name }}"</h1>
-<ul>
-  {% for post in object_list %}
-  {% if user.is_authenticated or post.is_public %}
-  <li>{% if not post.is_public %}[Draft] {% endif %}<a href="{% url 'blog:post_detail' post.id %}">{{ post.title }}</a></li>
-  {% if post.image %}
-    <a href="{% url 'blog:post_detail' post.id %}">
-      <img src="{{ post.image.url }}" alt="{{ post.title }}" width="240" height="126">
-    </a>
-  {% endif %}
-  
+<h1>Post of "{{ tag.name }}"</h1>
+{% for post in object_list %}
+<div class="row justify-content-between">
+  <div class="col-md-7 bg-light px-5 pt-5">
+    
+    
+    <div class="card mb-3">
+    {% if user.is_authenticated or post.is_public %}
+    
+      
+      {% if post.image %}
+      <a href="{% url 'blog:post_detail' post.id %}">
+        <img class="card-img-top" src="{{ post.image.url }}" alt="{{ post.title }}">
+      </a>
+      {% endif %}
+      
+      <div class="card-body">
+        {% if not post.is_public %}
+        <h5><span class="badge bg-secondary">Draft</span></h5>
+        {% endif %}
+        <a href="{% url 'blog:post_detail' post.id %}">
+          <h5 class="card-title">{{ post.title }}</h5>
+        </a>
+        <p class="card-text">{{ post.published_at|date }}</p>
+        <a href="{% url 'blog:post_detail' post.id %}" class="btn btn-primary">Read this page</a>
+      </div>
+    </div>
+  </div>
+</div>
   {% else %}
 
   <li>No post</li>
